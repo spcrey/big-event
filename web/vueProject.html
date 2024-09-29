@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>learn_html</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <h2> Vue3 Project </h2>
+        <div>
+            category: <input type="text" v-model="searchConditions.category"/> <span>{{searchConditions.category}}</span>
+            state: <input type="text" v-model="searchConditions.state"/> <span>{{searchConditions.state}}</span>
+            <span style="margin-right: 5px;"></span>
+            <button v-on:click="search">search</button> 
+            <span style="margin-right: 10px;"></span>
+            <button v-on:click="clear">clear</button>
+        </div>
+        <p> </p>    
+        <table>
+            <tr>
+                <td>Title</td>
+                <td>ID</td>
+                <td>Category</td>
+                <td>Time</td>
+                <td>State</td>
+            </tr>
+            <tr v-for="(article, index) in articleList">
+                <td>{{article.title}}</td>
+                <td>{{article.id}}</td> 
+                <td>{{article.categoryId}}</td>   
+                <td>{{article.updateTime}}</td>
+                <td>{{article.state}}</td>
+            </tr>
+        </table>
+    </div>
+    <script src="https://unpkg.com/axios@1.6.8/dist/axios.min.js"></script>  
+    <script type="module">
+        import { createApp } from "https://unpkg.com/vue@3.4.21/dist/vue.esm-browser.js"
+
+        createApp({
+            data() {
+                return {
+                    searchConditions: {
+                        category: "",
+                        state: "",
+                    },
+                    Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGFpbXMiOnsiaWQiOjIsInVzZXJuYW1lIjoieWluZ3lpbmcifSwiZXhwIjoxNzEyNDA5OTk2fQ.18SrAcjW8GyJ4s-HL_oVcGSjaJFWo7vTp5WRsTuJAus",
+                    articleList: []
+                }
+            },
+            methods: {
+                clear: function(){
+                    this.searchConditions.category = "";
+                    this.searchConditions.state = "";
+                    this.search();
+                },
+                search: function(){
+                    let params = {
+                        "pageNum": 1,
+                        "pageSize": 10,
+                    }
+                    if(this.searchConditions.category !== ""){
+                        params["categoryId"] = this.searchConditions.category;
+                    }
+                    if(this.searchConditions.state !== ""){
+                        params["state"] = this.searchConditions.state;
+                    }
+                    axios.get("http://localhost:8080/article",{
+                        headers: {
+                            "Authorization": this.Authorization,
+                        },  
+                        params: params,
+                    }).then(result=>{
+                        this.articleList = result.data.data.items
+                    }).catch(err=>{
+                        console.log(err);
+                    });
+                },
+            },
+            mounted: function() {
+                this.search();
+            }
+        }).mount("#app")
+    </script>
+</body>
+</html>

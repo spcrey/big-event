@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>learn_html</title>
+</head>
+<body>
+    <div id="app">
+
+        category: <input type="test" v-model="searchConditions.category"/> <span> {{searchConditions.category}} </span>
+        state: <input type="test" v-model="searchConditions.state"/> <span> {{searchConditions.state}} </span>
+        <button v-on:click="search">search</button>
+        <button v-on:click="clear">clear</button>
+
+        <table style="border-collapse: collapse; border: 1px solid black;"  cellspacing="0">
+            <tr>
+                <td>Title</td>
+                <td>Category</td>
+                <td>Time</td>
+                <td>State</td>
+            </tr>
+            <tr v-for="(article, index) in articleList">
+                <td>{{article.title}}</td>
+                <td>{{article.category}}</td>
+                <td>{{article.time}}</td>
+                <td>{{article.state}}</td>
+            </tr>
+        </table>
+
+        <a v-bind:href="url"> Baidu </a>
+
+        <div>
+            watch price: 
+            <span v-if="custom.level>=0 && custom.level<=1">9.9</span>
+            <span v-else-if="custom.level<=3">19.9</span>
+            <span v-else>29.9</span>
+            <br/>
+            watch price: 
+            <span v-show="custom.level>=0 && custom.level<=1">9.9</span>
+            <span v-show="custom.level>=2 && custom.level<=3">19.9</span>
+            <span v-show="custom.level>=4">29.9</span>
+        </div>
+
+        <div>
+            <button v-on:click="money"> click me to get money </button> &nbsp;
+            <button v-on:click="love"> click me to get love </button>
+        </div>
+
+    </div>
+    <script type="module">
+        import { createApp } from "https://unpkg.com/vue@3.4.21/dist/vue.esm-browser.js"
+
+        createApp({
+            data() {
+                return {
+                    custom: {
+                        name: "Ying",
+                        level: 3,
+                    },
+
+                    url: "https://www.baidu.com", 
+
+                    searchConditions: {
+                        category: "",
+                        state: "",
+                    },
+                    
+                    articleList: [
+                        {
+                            title: "title1",
+                            category: "category1",
+                            time: "time1",
+                            state: "state1",
+                        },
+                        {
+                            title: "title2",
+                            category: "category2",
+                            time: "time2",
+                            state: "state2",
+                        },
+                        {
+                            title: "title3",
+                            category: "category3",
+                            time: "time3",
+                            state: "state3",
+                        },
+                    ]
+                }
+            },
+            methods: {
+                money: function(){
+                    alert("give you $100");
+                },
+                love: function(){
+                    alert("give you love");
+                },
+                search: function(){
+                    this.searchConditions.category = "";
+                    this.searchConditions.state = "";
+                },
+                clear: function(){
+                    this.searchConditions.category = "";
+                    this.searchConditions.state = "";
+                },
+            },
+            mounted: function() {
+                console.log("mounted");
+            }
+        }).mount("#app")
+
+    </script>
+
+    <script src="https://unpkg.com/axios@1.6.8/dist/axios.min.js"></script>  
+    <script>
+
+        // axios({
+        //     method: "get",
+        //     url: "http://localhost:8080/user/userInfo",
+        //     headers: {
+        //         "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGFpbXMiOnsiaWQiOjIsInVzZXJuYW1lIjoieWluZ3lpbmcifSwiZXhwIjoxNzEyNDA5OTk2fQ.18SrAcjW8GyJ4s-HL_oVcGSjaJFWo7vTp5WRsTuJAus",
+        //     }
+        // }).then(result=>{
+        //     console.log(result.data);
+        // }).catch(err=>{
+        //     console.log(err);
+        // });
+
+        axios.get("http://localhost:8080/article",{
+            headers: {
+                "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGFpbXMiOnsiaWQiOjIsInVzZXJuYW1lIjoieWluZ3lpbmcifSwiZXhwIjoxNzEyNDA5OTk2fQ.18SrAcjW8GyJ4s-HL_oVcGSjaJFWo7vTp5WRsTuJAus",
+            },  
+            params: {
+                "pageNum": 2,
+                "pageSize": 3,
+            }
+        }).then(result=>{
+            console.log(result.data);
+        }).catch(err=>{
+            console.log(err);
+        });
+
+        // axios({
+        //     method: "post",
+        //     url: "http://localhost:8080/user/register",
+        //     data: {
+        //         "username": "duanxi",
+        //         "password": "123456"
+        //     },
+        //     headers: {
+        //         "Content-Type": "application/x-www-form-urlencoded"
+        //     }
+        // }).then(result=>{
+        //     console.log(result.data);
+        // }).catch(err=>{
+        //     console.log(err);
+        // });
+
+    </script>
+
+</body>
+</html>

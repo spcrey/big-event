@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: big-event
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/big_event
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  profiles:
+    active: dev
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+

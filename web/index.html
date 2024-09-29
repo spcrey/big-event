@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>learn_html</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+</head>
+<body>
+    <dev>
+        <button id="bnt">click me to show message</button>
+    </dev>
+    <script type="module">
+        import { simpleMessage as sm } from "./showMessage.js"
+
+        document.getElementById("bnt").onclick = function() {
+            sm("123complexMessage");
+        }
+
+    </script>
+</body>
+</html>

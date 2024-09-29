@@ -1,0 +1,35 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "AliyunFileUploadTest",
+            "request": "launch",
+            "mainClass": "com.spcrey.AliyunFileUploadTest",
+            "projectName": "big-event"
+        },
+        {
+            "type": "java",
+            "name": "MD5Utils",
+            "request": "launch",
+            "mainClass": "com.spcrey.utils.MD5Utils",
+            "projectName": "big-event"
+        },
+        {
+            "type": "java",
+            "name": "BigEventApplication",
+            "request": "launch",
+            "mainClass": "com.spcrey.BigEventApplication",
+            "projectName": "big-event"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-Main<big-event>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.spcrey.Main",
+            "projectName": "big-event",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
